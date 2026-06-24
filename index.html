@@ -8,11 +8,12 @@
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f0; min-height: 100vh; color: #1a1a1a; }
-  header { background: #1a2744; color: #fff; padding: 1.25rem 2rem; display: flex; align-items: center; gap: 12px; }
+  header { background: #1a2744; color: #fff; padding: 1.25rem 2rem; display: flex; align-items: center; }
   header h1 { font-size: 18px; font-weight: 500; }
   header span { font-size: 13px; opacity: 0.6; margin-left: auto; }
   .container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
-  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 2rem; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 1.5rem; }
   .card { background: #fff; border-radius: 12px; border: 0.5px solid rgba(0,0,0,0.1); padding: 1.25rem 1rem; text-align: center; }
   .card .label { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
   .card .value { font-size: 36px; font-weight: 600; line-height: 1; }
@@ -21,96 +22,70 @@
   .card.total .value { color: #2c3e50; }
   .card.rate .value { font-size: 28px; color: #8e44ad; }
 
-  .sick-names {
-    background: #fff;
-    border-radius: 12px;
-    border: 0.5px solid rgba(0,0,0,0.1);
-    padding: 1.25rem 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-  .sick-names h2 { font-size: 14px; font-weight: 500; color: #555; margin-bottom: 1rem; }
-  .names-wrap { display: flex; flex-wrap: wrap; gap: 8px; min-height: 32px; }
-  .name-pill {
-    background: #fdecea;
-    color: #c0392b;
-    border-radius: 20px;
-    padding: 4px 14px;
-    font-size: 13px;
-    font-weight: 500;
-  }
-  .no-sick { font-size: 13px; color: #aaa; padding: 4px 0; }
+  .section { background: #fff; border-radius: 12px; border: 0.5px solid rgba(0,0,0,0.1); padding: 1.5rem; margin-bottom: 1.5rem; }
+  .section h2 { font-size: 14px; font-weight: 500; color: #555; margin-bottom: 1rem; }
 
-  .chart-wrap { background: #fff; border-radius: 12px; border: 0.5px solid rgba(0,0,0,0.1); padding: 1.5rem; margin-bottom: 1.5rem; }
-  .chart-wrap h2 { font-size: 14px; font-weight: 500; color: #555; margin-bottom: 1rem; }
+  .names-wrap { display: flex; flex-wrap: wrap; gap: 8px; min-height: 28px; }
+  .name-pill { background: #fdecea; color: #c0392b; border-radius: 20px; padding: 4px 14px; font-size: 13px; font-weight: 500; }
+  .no-sick { font-size: 13px; color: #aaa; }
 
-  .admin-panel { background: #fff; border-radius: 12px; border: 0.5px solid rgba(0,0,0,0.1); padding: 1.5rem; }
-  .admin-panel h2 { font-size: 14px; font-weight: 500; color: #555; margin-bottom: 1rem; }
-
-  .form-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
-  .form-row label { font-size: 13px; color: #555; min-width: 90px; }
-  .form-row input[type=number], .form-row input[type=date] {
-    border: 0.5px solid rgba(0,0,0,0.2); border-radius: 8px;
-    padding: 7px 10px; font-size: 14px; width: 140px;
-  }
-  .form-row input[type=date] { width: 160px; }
-
-  .names-input-wrap { margin-bottom: 12px; }
-  .names-input-wrap label { font-size: 13px; color: #555; display: block; margin-bottom: 6px; }
-  .tag-input-box {
-    border: 0.5px solid rgba(0,0,0,0.2); border-radius: 10px;
-    padding: 8px 10px; min-height: 44px;
-    display: flex; flex-wrap: wrap; gap: 6px; align-items: center; cursor: text;
-  }
-  .tag-input-box input {
-    border: none; outline: none; font-size: 13px;
-    flex: 1; min-width: 120px; background: transparent;
-  }
-  .tag-item {
-    background: #fdecea; color: #c0392b; border-radius: 20px;
-    padding: 3px 10px 3px 12px; font-size: 13px; font-weight: 500;
-    display: flex; align-items: center; gap: 6px;
-  }
-  .tag-item button {
-    background: none; border: none; cursor: pointer;
-    color: #c0392b; font-size: 14px; line-height: 1; padding: 0;
-  }
-
-  .hint { font-size: 12px; color: #aaa; margin-top: 4px; }
-
-  .btn-update {
-    background: #1a2744; color: #fff; border: none;
-    border-radius: 8px; padding: 9px 22px; font-size: 13px; cursor: pointer; margin-top: 4px;
-  }
-  .btn-update:hover { background: #243660; }
-
-  .updated { font-size: 12px; color: #aaa; margin-top: 8px; }
-  hr { border: none; border-top: 0.5px solid rgba(0,0,0,0.07); margin: 1.2rem 0; }
-
+  /* History table - public */
   .history-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  .history-table th { text-align: left; color: #888; font-weight: 400; padding: 4px 8px 8px; }
-  .history-table td { padding: 7px 8px; border-top: 0.5px solid rgba(0,0,0,0.06); vertical-align: top; }
+  .history-table th { text-align: left; color: #888; font-weight: 400; padding: 4px 8px 10px; border-bottom: 0.5px solid rgba(0,0,0,0.08); }
+  .history-table td { padding: 8px 8px; border-top: 0.5px solid rgba(0,0,0,0.06); vertical-align: top; }
   .pill { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
   .pill.sick { background: #fdecea; color: #c0392b; }
   .pill.ok { background: #eafaf1; color: #27ae60; }
   .names-cell { display: flex; flex-wrap: wrap; gap: 4px; }
 
-  .lock-wrap { margin-bottom: 1rem; }
-  .lock-wrap input { border: 0.5px solid rgba(0,0,0,0.2); border-radius: 8px; padding: 7px 10px; font-size: 13px; margin-right: 8px; }
+  /* Admin */
+  .lock-wrap { margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .lock-wrap input { border: 0.5px solid rgba(0,0,0,0.2); border-radius: 8px; padding: 7px 10px; font-size: 13px; }
   .lock-wrap button { background: #1a2744; color: #fff; border: none; border-radius: 8px; padding: 8px 16px; font-size: 13px; cursor: pointer; }
-  .err { color: #c0392b; font-size: 12px; margin-top: 4px; }
+  .err { color: #c0392b; font-size: 12px; width: 100%; }
 
-  .del-btn { background: none; border: none; cursor: pointer; color: #aaa; font-size: 12px; margin-left: 6px; }
+  .form-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 12px; }
+  .form-row label { font-size: 13px; color: #555; min-width: 90px; }
+  .form-row input[type=number], .form-row input[type=date] { border: 0.5px solid rgba(0,0,0,0.2); border-radius: 8px; padding: 7px 10px; font-size: 14px; }
+  .form-row input[type=date] { width: 160px; }
+  .form-row input[type=number] { width: 80px; }
+
+  /* Name selector */
+  .name-selector-label { font-size: 13px; color: #555; margin-bottom: 8px; display: block; }
+  .preset-names { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+  .preset-btn {
+    background: #f0f0f0; color: #333; border: 0.5px solid rgba(0,0,0,0.15);
+    border-radius: 20px; padding: 5px 14px; font-size: 13px; cursor: pointer;
+    transition: all 0.15s;
+  }
+  .preset-btn:hover { background: #fdecea; color: #c0392b; border-color: #c0392b44; }
+  .preset-btn.selected { background: #fdecea; color: #c0392b; border-color: #c0392b; font-weight: 500; }
+
+  .custom-input-row { display: flex; gap: 8px; margin-bottom: 10px; }
+  .custom-input-row input { border: 0.5px solid rgba(0,0,0,0.2); border-radius: 8px; padding: 7px 10px; font-size: 13px; flex: 1; }
+  .custom-input-row button { background: #1a2744; color: #fff; border: none; border-radius: 8px; padding: 7px 14px; font-size: 13px; cursor: pointer; white-space: nowrap; }
+
+  .selected-names-wrap { display: flex; flex-wrap: wrap; gap: 6px; min-height: 28px; margin-bottom: 4px; }
+  .tag-item { background: #fdecea; color: #c0392b; border-radius: 20px; padding: 3px 10px 3px 12px; font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 6px; }
+  .tag-item button { background: none; border: none; cursor: pointer; color: #c0392b; font-size: 14px; line-height: 1; padding: 0; }
+  .hint { font-size: 12px; color: #aaa; margin-bottom: 12px; }
+
+  .btn-update { background: #1a2744; color: #fff; border: none; border-radius: 8px; padding: 9px 22px; font-size: 13px; cursor: pointer; }
+  .btn-update:hover { background: #243660; }
+  .updated { font-size: 12px; color: #27ae60; margin-top: 8px; }
+  hr { border: none; border-top: 0.5px solid rgba(0,0,0,0.07); margin: 1.2rem 0; }
+  .del-btn { background: none; border: none; cursor: pointer; color: #ccc; font-size: 12px; }
   .del-btn:hover { color: #c0392b; }
 </style>
 </head>
 <body>
-
 <header>
   <h1>🏢 Theo dõi sức khỏe phòng</h1>
   <span id="clock"></span>
 </header>
-
 <div class="container">
+
+  <!-- Stats -->
   <div class="cards">
     <div class="card sick"><div class="label">Đang ốm</div><div class="value" id="num-sick">0</div></div>
     <div class="card ok"><div class="label">Bình thường</div><div class="value" id="num-ok">0</div></div>
@@ -118,17 +93,29 @@
     <div class="card rate"><div class="label">Tỷ lệ ốm</div><div class="value" id="num-rate">0%</div></div>
   </div>
 
-  <div class="sick-names">
+  <!-- Today names -->
+  <div class="section">
     <h2>🤒 Người đang ốm hôm nay</h2>
     <div class="names-wrap" id="names-display"></div>
   </div>
 
-  <div class="chart-wrap">
+  <!-- Chart -->
+  <div class="section">
     <h2>Xu hướng 14 ngày gần nhất</h2>
     <canvas id="trendChart" height="90"></canvas>
   </div>
 
-  <div class="admin-panel">
+  <!-- Public history -->
+  <div class="section">
+    <h2>📅 Lịch sử 20 ngày gần nhất</h2>
+    <table class="history-table">
+      <thead><tr><th>Ngày</th><th>Số ốm / Tổng</th><th>Tỷ lệ</th><th>Tên người ốm</th></tr></thead>
+      <tbody id="public-history-body"></tbody>
+    </table>
+  </div>
+
+  <!-- Admin panel -->
+  <div class="section">
     <h2>🔒 Cập nhật số liệu (chỉ admin)</h2>
     <div class="lock-wrap" id="lock-section">
       <input type="password" id="pwd-input" placeholder="Nhập mật khẩu..." />
@@ -142,19 +129,20 @@
         <input type="date" id="inp-date" />
       </div>
       <div class="form-row">
-        <label>Số người ốm</label>
-        <input type="number" id="inp-sick" min="0" value="0" />
-        <label style="margin-left:8px">Tổng</label>
-        <input type="number" id="inp-total" min="0" value="0" />
+        <label>Tổng người</label>
+        <input type="number" id="inp-total" min="0" value="9" />
       </div>
 
-      <div class="names-input-wrap">
-        <label>Tên người ốm</label>
-        <div class="tag-input-box" id="tag-box" onclick="focusTagInput()">
-          <input type="text" id="tag-input" placeholder="Nhập tên rồi Enter..." />
-        </div>
-        <div class="hint">Nhập tên → Enter để thêm. Click ✕ để xoá.</div>
+      <span class="name-selector-label">Chọn người ốm</span>
+      <div class="preset-names" id="preset-names"></div>
+
+      <div class="custom-input-row">
+        <input type="text" id="custom-name-input" placeholder="Tên khác (Enter để thêm)..." />
+        <button onclick="addCustomName()">+ Thêm</button>
       </div>
+
+      <div class="selected-names-wrap" id="selected-names-wrap"></div>
+      <div class="hint">Click tên để chọn/bỏ chọn. Tên tự nhập sẽ được lưu vào danh sách.</div>
 
       <button class="btn-update" onclick="updateData()">✓ Lưu ngày này</button>
       <div class="updated" id="last-updated"></div>
@@ -162,41 +150,42 @@
       <hr>
       <table class="history-table">
         <thead><tr><th>Ngày</th><th>Số ốm / Tổng</th><th>Tỷ lệ</th><th>Tên người ốm</th><th></th></tr></thead>
-        <tbody id="history-body"></tbody>
+        <tbody id="admin-history-body"></tbody>
       </table>
     </div>
   </div>
+
 </div>
 
 <script>
 const PASSWORD = "admin123";
-const STORAGE_KEY = "sick_tracker_v2";
+const STORAGE_KEY = "sick_tracker_v3";
 
-function todayStr() {
-  return new Date().toISOString().slice(0, 10);
-}
+const DEFAULT_NAMES = ["Dũng tí","Hoa","Dương","Huy","Minh Anh","Hoàng","Tú (vật chủ)","Thảo","Thành"];
 
 function loadData() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) return JSON.parse(raw);
-  } catch(e) {}
-  return { history: [] };
+  try { const r = localStorage.getItem(STORAGE_KEY); if (r) return JSON.parse(r); } catch(e) {}
+  return { history: [], customNames: [] };
 }
 function saveData(d) { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); }
 
 let data = loadData();
 let chart;
-let currentTags = [];
+let selectedNames = [];
 
-function getToday() {
-  const today = todayStr();
-  return data.history.find(h => h.date === today) || { date: today, sick: 0, total: 0, names: [] };
+function allNames() {
+  return [...DEFAULT_NAMES, ...data.customNames.filter(n => !DEFAULT_NAMES.includes(n))];
+}
+
+function todayStr() { return new Date().toISOString().slice(0,10); }
+
+function getEntry(dateStr) {
+  return data.history.find(h => h.date === dateStr) || { date: dateStr, sick: 0, total: 9, names: [] };
 }
 
 function renderAll() {
-  const today = getToday();
-  const sick = today.sick || 0;
+  const today = getEntry(todayStr());
+  const sick = today.names ? today.names.length : (today.sick || 0);
   const total = today.total || 0;
   const ok = Math.max(0, total - sick);
   const rate = total > 0 ? Math.round(sick / total * 100) : 0;
@@ -206,62 +195,52 @@ function renderAll() {
   document.getElementById("num-total").textContent = total;
   document.getElementById("num-rate").textContent = rate + "%";
 
-  const namesWrap = document.getElementById("names-display");
+  const nw = document.getElementById("names-display");
   const names = today.names || [];
-  if (names.length === 0) {
-    namesWrap.innerHTML = '<span class="no-sick">Không có ai ốm hôm nay 🎉</span>';
-  } else {
-    namesWrap.innerHTML = names.map(n => `<span class="name-pill">${n}</span>`).join("");
-  }
+  nw.innerHTML = names.length === 0
+    ? '<span class="no-sick">Không có ai ốm hôm nay 🎉</span>'
+    : names.map(n => `<span class="name-pill">${n}</span>`).join("");
 
-  renderHistory();
+  renderPublicHistory();
+  renderAdminHistory();
   renderChart();
 }
 
-function renderHistory() {
-  const tbody = document.getElementById("history-body");
-  const rows = [...data.history].sort((a,b) => b.date.localeCompare(a.date)).slice(0, 20);
-  tbody.innerHTML = rows.map(r => {
-    const rate = r.total > 0 ? Math.round(r.sick/r.total*100) : 0;
-    const cls = r.sick > 0 ? 'sick' : 'ok';
-    const names = (r.names||[]).map(n => `<span class="pill sick" style="font-size:11px">${n}</span>`).join(" ");
-    const dateDisplay = r.date.split("-").reverse().join("/");
-    return `<tr>
-      <td>${dateDisplay}</td>
-      <td><span class="pill ${cls}">${r.sick} / ${r.total}</span></td>
-      <td>${rate}%</td>
-      <td><div class="names-cell">${names || '<span style="color:#aaa;font-size:12px">—</span>'}</div></td>
-      <td><button class="del-btn" onclick="deleteRow('${r.date}')">✕</button></td>
-    </tr>`;
-  }).join("");
+function historyRows(limit, withDelete) {
+  return [...data.history]
+    .sort((a,b) => b.date.localeCompare(a.date))
+    .slice(0, limit)
+    .map(r => {
+      const sick = r.names ? r.names.length : (r.sick || 0);
+      const rate = r.total > 0 ? Math.round(sick / r.total * 100) : 0;
+      const cls = sick > 0 ? 'sick' : 'ok';
+      const dateD = r.date.split("-").reverse().join("/");
+      const namesHtml = (r.names||[]).length > 0
+        ? (r.names||[]).map(n => `<span class="pill sick" style="font-size:11px">${n}</span>`).join(" ")
+        : '<span style="color:#aaa;font-size:12px">—</span>';
+      const delBtn = withDelete ? `<td><button class="del-btn" onclick="deleteRow('${r.date}')">✕</button></td>` : '';
+      return `<tr><td>${dateD}</td><td><span class="pill ${cls}">${sick} / ${r.total}</span></td><td>${rate}%</td><td><div class="names-cell">${namesHtml}</div></td>${delBtn}</tr>`;
+    }).join("");
+}
+
+function renderPublicHistory() {
+  document.getElementById("public-history-body").innerHTML = historyRows(20, false);
+}
+function renderAdminHistory() {
+  document.getElementById("admin-history-body").innerHTML = historyRows(30, true);
 }
 
 function renderChart() {
   const sorted = [...data.history].sort((a,b) => a.date.localeCompare(b.date)).slice(-14);
   const labels = sorted.map(r => r.date.slice(5).replace("-","/"));
-  const sickVals = sorted.map(r => r.sick);
+  const vals = sorted.map(r => r.names ? r.names.length : (r.sick||0));
   const ctx = document.getElementById("trendChart").getContext("2d");
   if (chart) chart.destroy();
   chart = new Chart(ctx, {
     type: "bar",
-    data: {
-      labels,
-      datasets: [{
-        label: "Số người ốm",
-        data: sickVals,
-        backgroundColor: "rgba(192,57,43,0.72)",
-        borderRadius: 5,
-        borderSkipped: false
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: { legend: { display: false } },
-      scales: {
-        y: { beginAtZero: true, ticks: { stepSize: 1, font:{size:12} }, grid:{color:"rgba(0,0,0,0.05)"} },
-        x: { ticks: { font:{size:11} }, grid:{display:false} }
-      }
-    }
+    data: { labels, datasets: [{ label: "Số người ốm", data: vals, backgroundColor: "rgba(192,57,43,0.72)", borderRadius: 5, borderSkipped: false }] },
+    options: { responsive: true, plugins: { legend: { display: false } },
+      scales: { y: { beginAtZero: true, ticks: { stepSize: 1, font:{size:12} }, grid:{color:"rgba(0,0,0,0.05)"} }, x: { ticks:{font:{size:11}}, grid:{display:false} } } }
   });
 }
 
@@ -270,38 +249,81 @@ function unlock() {
   if (val === PASSWORD) {
     document.getElementById("lock-section").style.display = "none";
     document.getElementById("edit-section").style.display = "block";
+    renderPresetNames();
     document.getElementById("inp-date").value = todayStr();
     loadDateIntoForm(todayStr());
-    document.getElementById("inp-date").addEventListener("change", function() {
-      loadDateIntoForm(this.value);
+    document.getElementById("inp-date").addEventListener("change", function() { loadDateIntoForm(this.value); });
+    document.getElementById("custom-name-input").addEventListener("keydown", function(e) {
+      if (e.key === "Enter") { e.preventDefault(); addCustomName(); }
     });
   } else {
     document.getElementById("pwd-err").textContent = "Sai mật khẩu.";
   }
 }
 
+function renderPresetNames() {
+  const wrap = document.getElementById("preset-names");
+  wrap.innerHTML = allNames().map(n => {
+    const sel = selectedNames.includes(n) ? "selected" : "";
+    return `<button class="preset-btn ${sel}" onclick="toggleName('${n.replace(/'/g,"\\'")}')">
+      ${n}${selectedNames.includes(n) ? " ✓" : ""}
+    </button>`;
+  }).join("");
+  renderSelectedTags();
+}
+
+function toggleName(name) {
+  if (selectedNames.includes(name)) {
+    selectedNames = selectedNames.filter(n => n !== name);
+  } else {
+    selectedNames.push(name);
+  }
+  document.getElementById("inp-total") && null;
+  renderPresetNames();
+}
+
+function addCustomName() {
+  const inp = document.getElementById("custom-name-input");
+  const val = inp.value.trim();
+  if (!val) return;
+  if (!allNames().includes(val)) {
+    data.customNames.push(val);
+    saveData(data);
+  }
+  if (!selectedNames.includes(val)) selectedNames.push(val);
+  inp.value = "";
+  renderPresetNames();
+}
+
+function renderSelectedTags() {
+  const wrap = document.getElementById("selected-names-wrap");
+  wrap.innerHTML = selectedNames.map((n,i) =>
+    `<span class="tag-item">${n} <button onclick="removeSelected(${i})">✕</button></span>`
+  ).join("");
+}
+
+function removeSelected(i) {
+  selectedNames.splice(i, 1);
+  renderPresetNames();
+}
+
 function loadDateIntoForm(dateStr) {
   const entry = data.history.find(h => h.date === dateStr);
-  document.getElementById("inp-sick").value = entry ? entry.sick : 0;
-  document.getElementById("inp-total").value = entry ? entry.total : 0;
-  currentTags = entry ? [...(entry.names || [])] : [];
-  renderTags();
+  document.getElementById("inp-total").value = entry ? entry.total : 9;
+  selectedNames = entry ? [...(entry.names || [])] : [];
+  renderPresetNames();
 }
 
 function updateData() {
   const dateStr = document.getElementById("inp-date").value;
   if (!dateStr) { alert("Chọn ngày trước."); return; }
-  const sick = parseInt(document.getElementById("inp-sick").value) || 0;
   const total = parseInt(document.getElementById("inp-total").value) || 0;
-
+  const entry = { date: dateStr, sick: selectedNames.length, total, names: [...selectedNames], ts: new Date().toISOString() };
   const idx = data.history.findIndex(h => h.date === dateStr);
-  const entry = { date: dateStr, sick, total, names: [...currentTags], ts: new Date().toISOString() };
-  if (idx >= 0) data.history[idx] = entry;
-  else data.history.push(entry);
-
+  if (idx >= 0) data.history[idx] = entry; else data.history.push(entry);
   saveData(data);
-  const dateDisplay = dateStr.split("-").reverse().join("/");
-  document.getElementById("last-updated").textContent = "✓ Đã lưu ngày " + dateDisplay;
+  const dateD = dateStr.split("-").reverse().join("/");
+  document.getElementById("last-updated").textContent = "✓ Đã lưu ngày " + dateD;
   renderAll();
 }
 
@@ -312,52 +334,8 @@ function deleteRow(dateStr) {
   renderAll();
 }
 
-// Tag input
-function focusTagInput() { document.getElementById("tag-input").focus(); }
-
-document.addEventListener("DOMContentLoaded", function() {
-  const input = document.getElementById("tag-input");
-  input.addEventListener("keydown", function(e) {
-    if (e.key === "Enter" || e.key === ",") {
-      e.preventDefault();
-      const val = input.value.trim();
-      if (val && !currentTags.includes(val)) {
-        currentTags.push(val);
-        renderTags();
-        // sync sick count
-        document.getElementById("inp-sick").value = currentTags.length;
-      }
-      input.value = "";
-    } else if (e.key === "Backspace" && input.value === "" && currentTags.length > 0) {
-      currentTags.pop();
-      renderTags();
-      document.getElementById("inp-sick").value = currentTags.length;
-    }
-  });
-});
-
-function renderTags() {
-  const box = document.getElementById("tag-box");
-  const input = document.getElementById("tag-input");
-  const existing = box.querySelectorAll(".tag-item");
-  existing.forEach(el => el.remove());
-  currentTags.forEach((name, i) => {
-    const tag = document.createElement("span");
-    tag.className = "tag-item";
-    tag.innerHTML = `${name} <button onclick="removeTag(${i})" title="Xoá">✕</button>`;
-    box.insertBefore(tag, input);
-  });
-}
-
-function removeTag(i) {
-  currentTags.splice(i, 1);
-  renderTags();
-  document.getElementById("inp-sick").value = currentTags.length;
-}
-
 function clock() { document.getElementById("clock").textContent = new Date().toLocaleTimeString("vi-VN"); }
-setInterval(clock, 1000);
-clock();
+setInterval(clock, 1000); clock();
 renderAll();
 </script>
 </body>
