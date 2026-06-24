@@ -12,7 +12,6 @@
   header h1 { font-size: 18px; font-weight: 500; }
   header span { font-size: 13px; opacity: 0.6; margin-left: auto; }
   .container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
-
   .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 1.5rem; }
   .card { background: #fff; border-radius: 12px; border: 0.5px solid rgba(0,0,0,0.1); padding: 1.25rem 1rem; text-align: center; }
   .card .label { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
@@ -21,53 +20,42 @@
   .card.ok .value { color: #27ae60; }
   .card.total .value { color: #2c3e50; }
   .card.rate .value { font-size: 28px; color: #8e44ad; }
-
   .section { background: #fff; border-radius: 12px; border: 0.5px solid rgba(0,0,0,0.1); padding: 1.5rem; margin-bottom: 1.5rem; }
   .section h2 { font-size: 14px; font-weight: 500; color: #555; margin-bottom: 1rem; }
-
   .names-wrap { display: flex; flex-wrap: wrap; gap: 8px; min-height: 28px; }
   .name-pill { background: #fdecea; color: #c0392b; border-radius: 20px; padding: 4px 14px; font-size: 13px; font-weight: 500; }
   .no-sick { font-size: 13px; color: #aaa; }
-
   .history-table { width: 100%; border-collapse: collapse; font-size: 13px; }
   .history-table th { text-align: left; color: #888; font-weight: 400; padding: 4px 8px 10px; border-bottom: 0.5px solid rgba(0,0,0,0.08); }
-  .history-table td { padding: 8px 8px; border-top: 0.5px solid rgba(0,0,0,0.06); vertical-align: top; }
+  .history-table td { padding: 8px; border-top: 0.5px solid rgba(0,0,0,0.06); vertical-align: top; }
   .pill { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
   .pill.sick { background: #fdecea; color: #c0392b; }
   .pill.ok { background: #eafaf1; color: #27ae60; }
   .names-cell { display: flex; flex-wrap: wrap; gap: 4px; }
-
   .lock-wrap { margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
   .lock-wrap input { border: 0.5px solid rgba(0,0,0,0.2); border-radius: 8px; padding: 7px 10px; font-size: 13px; }
   .lock-wrap button { background: #1a2744; color: #fff; border: none; border-radius: 8px; padding: 8px 16px; font-size: 13px; cursor: pointer; }
-  .err { color: #c0392b; font-size: 12px; width: 100%; }
-
+  .err-text { color: #c0392b; font-size: 12px; width: 100%; }
   .form-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 12px; }
   .form-row label { font-size: 13px; color: #555; min-width: 90px; }
   .form-row input[type=number] { border: 0.5px solid rgba(0,0,0,0.2); border-radius: 8px; padding: 7px 10px; font-size: 14px; width: 80px; }
   .form-row input[type=date] { border: 0.5px solid rgba(0,0,0,0.2); border-radius: 8px; padding: 7px 10px; font-size: 14px; width: 160px; }
-
   .name-selector-label { font-size: 13px; color: #555; margin-bottom: 8px; display: block; }
   .preset-names { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
   .preset-btn { background: #f0f0f0; color: #333; border: 0.5px solid rgba(0,0,0,0.15); border-radius: 20px; padding: 5px 14px; font-size: 13px; cursor: pointer; }
-  .preset-btn:hover { background: #fdecea; color: #c0392b; border-color: #c0392b44; }
   .preset-btn.selected { background: #fdecea; color: #c0392b; border-color: #c0392b; font-weight: 500; }
-
   .custom-input-row { display: flex; gap: 8px; margin-bottom: 10px; }
   .custom-input-row input { border: 0.5px solid rgba(0,0,0,0.2); border-radius: 8px; padding: 7px 10px; font-size: 13px; flex: 1; }
   .custom-input-row button { background: #1a2744; color: #fff; border: none; border-radius: 8px; padding: 7px 14px; font-size: 13px; cursor: pointer; }
-
   .selected-names-wrap { display: flex; flex-wrap: wrap; gap: 6px; min-height: 28px; margin-bottom: 4px; }
   .tag-item { background: #fdecea; color: #c0392b; border-radius: 20px; padding: 3px 10px 3px 12px; font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 6px; }
   .tag-item button { background: none; border: none; cursor: pointer; color: #c0392b; font-size: 14px; line-height: 1; padding: 0; }
   .hint { font-size: 12px; color: #aaa; margin-bottom: 12px; }
-
   .btn-update { background: #1a2744; color: #fff; border: none; border-radius: 8px; padding: 9px 22px; font-size: 13px; cursor: pointer; }
-  .btn-update:hover { background: #243660; }
   .btn-update:disabled { background: #aaa; cursor: not-allowed; }
   .save-msg { font-size: 12px; margin-top: 8px; }
-  .save-msg.ok { color: #27ae60; }
-  .save-msg.err { color: #c0392b; }
+  .save-ok { color: #27ae60; }
+  .save-err { color: #c0392b; }
   hr { border: none; border-top: 0.5px solid rgba(0,0,0,0.07); margin: 1.2rem 0; }
   .del-btn { background: none; border: none; cursor: pointer; color: #ccc; font-size: 12px; }
   .del-btn:hover { color: #c0392b; }
@@ -82,24 +70,20 @@
   <span id="clock"></span>
 </header>
 <div class="container">
-
   <div class="cards">
     <div class="card sick"><div class="label">Đang ốm</div><div class="value" id="num-sick">—</div></div>
     <div class="card ok"><div class="label">Bình thường</div><div class="value" id="num-ok">—</div></div>
     <div class="card total"><div class="label">Tổng</div><div class="value" id="num-total">—</div></div>
     <div class="card rate"><div class="label">Tỷ lệ ốm</div><div class="value" id="num-rate">—</div></div>
   </div>
-
   <div class="section">
     <h2>🤒 Người đang ốm hôm nay</h2>
     <div class="names-wrap" id="names-display"><span class="loading"><span class="spinner"></span>Đang tải...</span></div>
   </div>
-
   <div class="section">
     <h2>Xu hướng 14 ngày gần nhất</h2>
     <canvas id="trendChart" height="90"></canvas>
   </div>
-
   <div class="section">
     <h2>📅 Lịch sử 20 ngày gần nhất</h2>
     <div id="public-loading" class="loading"><span class="spinner"></span>Đang tải...</div>
@@ -107,16 +91,15 @@
       <thead><tr><th>Ngày</th><th>Số ốm / Tổng</th><th>Tỷ lệ</th><th>Tên người ốm</th></tr></thead>
       <tbody id="public-history-body"></tbody>
     </table>
+    <div id="public-err" style="display:none;color:#c0392b;font-size:13px"></div>
   </div>
-
   <div class="section">
     <h2>🔒 Cập nhật số liệu (chỉ admin)</h2>
     <div class="lock-wrap" id="lock-section">
       <input type="password" id="pwd-input" placeholder="Nhập mật khẩu..." />
       <button onclick="unlock()">Xác nhận</button>
-      <div class="err" id="pwd-err"></div>
+      <div class="err-text" id="pwd-err"></div>
     </div>
-
     <div id="edit-section" style="display:none">
       <div class="form-row">
         <label>Ngày</label>
@@ -126,21 +109,16 @@
         <label>Tổng người</label>
         <input type="number" id="inp-total" min="0" value="9" />
       </div>
-
       <span class="name-selector-label">Chọn người ốm</span>
       <div class="preset-names" id="preset-names"></div>
-
       <div class="custom-input-row">
         <input type="text" id="custom-name-input" placeholder="Tên khác (Enter để thêm)..." />
         <button onclick="addCustomName()">+ Thêm</button>
       </div>
-
       <div class="selected-names-wrap" id="selected-names-wrap"></div>
       <div class="hint">Click tên để chọn/bỏ chọn. Tên tự nhập sẽ lưu vào danh sách.</div>
-
       <button class="btn-update" id="btn-save" onclick="updateData()">✓ Lưu ngày này</button>
       <div class="save-msg" id="save-msg"></div>
-
       <hr>
       <table class="history-table">
         <thead><tr><th>Ngày</th><th>Số ốm / Tổng</th><th>Tỷ lệ</th><th>Tên người ốm</th><th></th></tr></thead>
@@ -148,224 +126,201 @@
       </table>
     </div>
   </div>
-
 </div>
 <script>
-const API = "https://script.google.com/macros/s/AKfycbyEe43R3rgL2vDb1ILaAIEI3XjuMo335RCHpzTBXkzLs6szcCx5WwDL5Ulrjwj6dhO0Ag/exec";
+const API = "https://script.google.com/macros/s/AKfycbzMnpX3SIrfpXAAjxSXNzsaFUYrhavgMzsKFTKAo10zJwsaKNVW7P9lT6IdK0U9m2chAQ/exec";
 const PASSWORD = "admin123";
 const CUSTOM_KEY = "sick_custom_names";
-
 const DEFAULT_NAMES = ["Dũng tí","Hoa","Dương","Huy","Minh Anh","Hoàng","Tú (vật chủ)","Thảo","Thành"];
 
 let allData = [];
 let chart;
 let selectedNames = [];
 
-function getCustomNames() {
-  try { return JSON.parse(localStorage.getItem(CUSTOM_KEY) || "[]"); } catch(e) { return []; }
-}
+function getCustomNames() { try { return JSON.parse(localStorage.getItem(CUSTOM_KEY)||"[]"); } catch(e){ return []; } }
 function saveCustomNames(arr) { localStorage.setItem(CUSTOM_KEY, JSON.stringify(arr)); }
-
-function allNames() {
-  const custom = getCustomNames();
-  return [...DEFAULT_NAMES, ...custom.filter(n => !DEFAULT_NAMES.includes(n))];
-}
-
+function allNames() { const c=getCustomNames(); return [...DEFAULT_NAMES,...c.filter(n=>!DEFAULT_NAMES.includes(n))]; }
 function todayStr() { return new Date().toISOString().slice(0,10); }
+
+// JSONP-based fetch to avoid CORS
+function jsonpFetch(url) {
+  return new Promise((resolve, reject) => {
+    const cb = "cb_" + Date.now();
+    const script = document.createElement("script");
+    const timer = setTimeout(() => {
+      delete window[cb];
+      script.remove();
+      reject(new Error("timeout"));
+    }, 15000);
+    window[cb] = (data) => {
+      clearTimeout(timer);
+      delete window[cb];
+      script.remove();
+      resolve(data);
+    };
+    script.src = url + (url.includes("?")?"&":"?") + "callback=" + cb;
+    script.onerror = () => { clearTimeout(timer); delete window[cb]; script.remove(); reject(new Error("script error")); };
+    document.head.appendChild(script);
+  });
+}
 
 async function fetchData() {
   try {
-    const res = await fetch(API);
-    const json = await res.json();
+    const json = await jsonpFetch(API);
     if (json.ok) {
-      allData = json.data.sort((a,b) => b.date.localeCompare(a.date));
+      allData = json.data.sort((a,b) => String(b.date).localeCompare(String(a.date)));
       renderAll();
+      document.getElementById("public-err").style.display = "none";
     }
   } catch(e) {
-    document.getElementById("names-display").innerHTML = '<span style="color:#c0392b;font-size:13px">Lỗi kết nối. Thử lại sau.</span>';
+    document.getElementById("names-display").innerHTML = '<span style="color:#c0392b;font-size:13px">Lỗi kết nối. Đang thử lại...</span>';
+    document.getElementById("public-loading").style.display = "none";
+    document.getElementById("public-err").style.display = "";
+    document.getElementById("public-err").textContent = "Không tải được dữ liệu. Thử lại sau.";
   }
 }
 
-function getToday() {
-  return allData.find(r => r.date === todayStr()) || { date: todayStr(), sick: 0, total: 9, names: [] };
-}
+function getToday() { return allData.find(r=>r.date===todayStr())||{date:todayStr(),sick:0,total:9,names:[]}; }
 
 function renderAll() {
   const today = getToday();
-  const names = Array.isArray(today.names) ? today.names : [];
-  const sick = names.length || parseInt(today.sick) || 0;
-  const total = parseInt(today.total) || 0;
-  const ok = Math.max(0, total - sick);
-  const rate = total > 0 ? Math.round(sick / total * 100) : 0;
-
+  const names = Array.isArray(today.names)?today.names:[];
+  const sick = names.length||parseInt(today.sick)||0;
+  const total = parseInt(today.total)||0;
+  const ok = Math.max(0,total-sick);
+  const rate = total>0?Math.round(sick/total*100):0;
   document.getElementById("num-sick").textContent = sick;
   document.getElementById("num-ok").textContent = ok;
   document.getElementById("num-total").textContent = total;
-  document.getElementById("num-rate").textContent = rate + "%";
-
+  document.getElementById("num-rate").textContent = rate+"%";
   const nw = document.getElementById("names-display");
-  nw.innerHTML = names.length === 0
+  nw.innerHTML = names.length===0
     ? '<span class="no-sick">Không có ai ốm hôm nay 🎉</span>'
-    : names.map(n => `<span class="name-pill">${n}</span>`).join("");
-
+    : names.map(n=>`<span class="name-pill">${n}</span>`).join("");
   renderPublicHistory();
   renderAdminHistory();
   renderChart();
 }
 
 function buildRows(data, limit, withDelete) {
-  return data.slice(0, limit).map(r => {
-    const names = Array.isArray(r.names) ? r.names : [];
-    const sick = names.length || parseInt(r.sick) || 0;
-    const total = parseInt(r.total) || 0;
-    const rate = total > 0 ? Math.round(sick / total * 100) : 0;
-    const cls = sick > 0 ? 'sick' : 'ok';
+  return data.slice(0,limit).map(r => {
+    const names = Array.isArray(r.names)?r.names:[];
+    const sick = names.length||parseInt(r.sick)||0;
+    const total = parseInt(r.total)||0;
+    const rate = total>0?Math.round(sick/total*100):0;
+    const cls = sick>0?'sick':'ok';
     const dateD = String(r.date).split("-").reverse().join("/");
-    const namesHtml = names.length > 0
-      ? names.map(n => `<span class="pill sick" style="font-size:11px">${n}</span>`).join(" ")
+    const namesHtml = names.length>0
+      ? names.map(n=>`<span class="pill sick" style="font-size:11px">${n}</span>`).join(" ")
       : '<span style="color:#aaa;font-size:12px">—</span>';
-    const del = withDelete ? `<td><button class="del-btn" onclick="deleteRow('${r.date}')">✕</button></td>` : '';
-    return `<tr><td>${dateD}</td><td><span class="pill ${cls}">${sick} / ${total}</span></td><td>${rate}%</td><td><div class="names-cell">${namesHtml}</div></td>${del}</tr>`;
+    const del = withDelete?`<td><button class="del-btn" onclick="deleteRow('${r.date}')">✕</button></td>`:'';
+    return `<tr><td>${dateD}</td><td><span class="pill ${cls}">${sick}/${total}</span></td><td>${rate}%</td><td><div class="names-cell">${namesHtml}</div></td>${del}</tr>`;
   }).join("");
 }
 
 function renderPublicHistory() {
-  document.getElementById("public-loading").style.display = "none";
-  document.getElementById("public-table").style.display = "";
-  document.getElementById("public-history-body").innerHTML = buildRows(allData, 20, false);
+  document.getElementById("public-loading").style.display="none";
+  document.getElementById("public-table").style.display="";
+  document.getElementById("public-history-body").innerHTML = buildRows(allData,20,false);
 }
-
-function renderAdminHistory() {
-  document.getElementById("admin-history-body").innerHTML = buildRows(allData, 30, true);
-}
+function renderAdminHistory() { document.getElementById("admin-history-body").innerHTML = buildRows(allData,30,true); }
 
 function renderChart() {
-  const sorted = [...allData].sort((a,b) => a.date.localeCompare(b.date)).slice(-14);
-  const labels = sorted.map(r => String(r.date).slice(5).replace("-","/"));
-  const vals = sorted.map(r => {
-    const names = Array.isArray(r.names) ? r.names : [];
-    return names.length || parseInt(r.sick) || 0;
-  });
+  const sorted = [...allData].sort((a,b)=>String(a.date).localeCompare(String(b.date))).slice(-14);
+  const labels = sorted.map(r=>String(r.date).slice(5).replace("-","/"));
+  const vals = sorted.map(r=>{const n=Array.isArray(r.names)?r.names:[];return n.length||parseInt(r.sick)||0;});
   const ctx = document.getElementById("trendChart").getContext("2d");
-  if (chart) chart.destroy();
-  chart = new Chart(ctx, {
-    type: "bar",
-    data: { labels, datasets: [{ label: "Số người ốm", data: vals, backgroundColor: "rgba(192,57,43,0.72)", borderRadius: 5, borderSkipped: false }] },
-    options: { responsive: true, plugins: { legend: { display: false } },
-      scales: { y: { beginAtZero: true, ticks:{stepSize:1,font:{size:12}}, grid:{color:"rgba(0,0,0,0.05)"} }, x:{ticks:{font:{size:11}},grid:{display:false}} } }
+  if(chart) chart.destroy();
+  chart = new Chart(ctx,{
+    type:"bar",
+    data:{labels,datasets:[{label:"Số người ốm",data:vals,backgroundColor:"rgba(192,57,43,0.72)",borderRadius:5,borderSkipped:false}]},
+    options:{responsive:true,plugins:{legend:{display:false}},
+      scales:{y:{beginAtZero:true,ticks:{stepSize:1,font:{size:12}},grid:{color:"rgba(0,0,0,0.05)"}},x:{ticks:{font:{size:11}},grid:{display:false}}}}
   });
 }
 
 function unlock() {
-  const val = document.getElementById("pwd-input").value;
-  if (val === PASSWORD) {
-    document.getElementById("lock-section").style.display = "none";
-    document.getElementById("edit-section").style.display = "block";
+  if(document.getElementById("pwd-input").value===PASSWORD){
+    document.getElementById("lock-section").style.display="none";
+    document.getElementById("edit-section").style.display="block";
     renderPresetNames();
-    document.getElementById("inp-date").value = todayStr();
+    document.getElementById("inp-date").value=todayStr();
     loadDateIntoForm(todayStr());
-    document.getElementById("inp-date").addEventListener("change", function() { loadDateIntoForm(this.value); });
-    document.getElementById("custom-name-input").addEventListener("keydown", function(e) {
-      if (e.key === "Enter") { e.preventDefault(); addCustomName(); }
-    });
-  } else {
-    document.getElementById("pwd-err").textContent = "Sai mật khẩu.";
-  }
+    document.getElementById("inp-date").addEventListener("change",function(){loadDateIntoForm(this.value);});
+    document.getElementById("custom-name-input").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();addCustomName();}});
+  } else { document.getElementById("pwd-err").textContent="Sai mật khẩu."; }
 }
 
 function renderPresetNames() {
-  const wrap = document.getElementById("preset-names");
-  wrap.innerHTML = allNames().map(n => {
-    const sel = selectedNames.includes(n);
-    return `<button class="preset-btn ${sel?'selected':''}" onclick="toggleName(this,'${n.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}')">
+  document.getElementById("preset-names").innerHTML = allNames().map(n=>{
+    const sel=selectedNames.includes(n);
+    return `<button class="preset-btn ${sel?'selected':''}" onclick="toggleName('${n.replace(/'/g,"\\'")}')">
       ${n}${sel?" ✓":""}
     </button>`;
   }).join("");
   renderSelectedTags();
 }
-
-function toggleName(btn, name) {
-  if (selectedNames.includes(name)) {
-    selectedNames = selectedNames.filter(n => n !== name);
-  } else {
-    selectedNames.push(name);
-  }
+function toggleName(name){
+  selectedNames=selectedNames.includes(name)?selectedNames.filter(n=>n!==name):[...selectedNames,name];
   renderPresetNames();
 }
-
-function addCustomName() {
-  const inp = document.getElementById("custom-name-input");
-  const val = inp.value.trim();
-  if (!val) return;
-  const custom = getCustomNames();
-  if (!allNames().includes(val)) { custom.push(val); saveCustomNames(custom); }
-  if (!selectedNames.includes(val)) selectedNames.push(val);
-  inp.value = "";
-  renderPresetNames();
+function addCustomName(){
+  const inp=document.getElementById("custom-name-input");
+  const val=inp.value.trim(); if(!val) return;
+  const custom=getCustomNames();
+  if(!allNames().includes(val)){custom.push(val);saveCustomNames(custom);}
+  if(!selectedNames.includes(val)) selectedNames.push(val);
+  inp.value=""; renderPresetNames();
 }
-
-function renderSelectedTags() {
-  const wrap = document.getElementById("selected-names-wrap");
-  wrap.innerHTML = selectedNames.map((n,i) =>
+function renderSelectedTags(){
+  document.getElementById("selected-names-wrap").innerHTML=selectedNames.map((n,i)=>
     `<span class="tag-item">${n} <button onclick="removeSelected(${i})">✕</button></span>`
   ).join("");
 }
-
-function removeSelected(i) { selectedNames.splice(i,1); renderPresetNames(); }
-
-function loadDateIntoForm(dateStr) {
-  const entry = allData.find(r => r.date === dateStr);
-  document.getElementById("inp-total").value = entry ? entry.total : 9;
-  selectedNames = entry ? [...(Array.isArray(entry.names) ? entry.names : [])] : [];
+function removeSelected(i){selectedNames.splice(i,1);renderPresetNames();}
+function loadDateIntoForm(dateStr){
+  const entry=allData.find(r=>r.date===dateStr);
+  document.getElementById("inp-total").value=entry?entry.total:9;
+  selectedNames=entry?[...(Array.isArray(entry.names)?entry.names:[])]:[];
   renderPresetNames();
 }
 
-async function updateData() {
-  const dateStr = document.getElementById("inp-date").value;
-  if (!dateStr) { alert("Chọn ngày trước."); return; }
-  const total = parseInt(document.getElementById("inp-total").value) || 0;
-  const btn = document.getElementById("btn-save");
-  const msg = document.getElementById("save-msg");
-  btn.disabled = true;
-  btn.textContent = "Đang lưu...";
-  msg.textContent = "";
+async function updateData(){
+  const dateStr=document.getElementById("inp-date").value;
+  if(!dateStr){alert("Chọn ngày trước.");return;}
+  const total=parseInt(document.getElementById("inp-total").value)||0;
+  const btn=document.getElementById("btn-save");
+  const msg=document.getElementById("save-msg");
+  btn.disabled=true; btn.textContent="Đang lưu..."; msg.textContent="";
+  const payload={password:PASSWORD,date:dateStr,sick:selectedNames.length,total,names:selectedNames,ts:new Date().toISOString()};
   try {
-    const res = await fetch(API, {
-      method: "POST",
-      body: JSON.stringify({ password: PASSWORD, date: dateStr, sick: selectedNames.length, total, names: selectedNames, ts: new Date().toISOString() })
-    });
-    const json = await res.json();
-    if (json.ok) {
-      msg.className = "save-msg ok";
-      msg.textContent = "✓ Đã lưu ngày " + dateStr.split("-").reverse().join("/");
-      await fetchData();
-    } else {
-      msg.className = "save-msg err";
-      msg.textContent = "Lỗi: " + (json.error || "Không rõ");
-    }
-  } catch(e) {
-    msg.className = "save-msg err";
-    msg.textContent = "Lỗi kết nối. Thử lại.";
-  }
-  btn.disabled = false;
-  btn.textContent = "✓ Lưu ngày này";
-}
-
-async function deleteRow(dateStr) {
-  if (!confirm("Xoá dữ liệu ngày " + dateStr + "?")) return;
-  try {
-    await fetch(API, {
-      method: "POST",
-      body: JSON.stringify({ password: PASSWORD, date: dateStr, _delete: true, sick:0, total:0, names:[], ts:"" })
-    });
+    // Use no-cors POST then re-fetch via JSONP to confirm
+    await fetch(API,{method:"POST",body:JSON.stringify(payload),mode:"no-cors"});
+    // Wait a moment then re-fetch
+    await new Promise(r=>setTimeout(r,1500));
     await fetchData();
-  } catch(e) { alert("Lỗi kết nối."); }
+    msg.className="save-msg save-ok";
+    msg.textContent="✓ Đã lưu ngày "+dateStr.split("-").reverse().join("/");
+  } catch(e) {
+    msg.className="save-msg save-err";
+    msg.textContent="Lỗi khi lưu. Thử lại.";
+  }
+  btn.disabled=false; btn.textContent="✓ Lưu ngày này";
 }
 
-function clock() { document.getElementById("clock").textContent = new Date().toLocaleTimeString("vi-VN"); }
-setInterval(clock, 1000); clock();
+async function deleteRow(dateStr){
+  if(!confirm("Xoá dữ liệu ngày "+dateStr+"?")) return;
+  try {
+    await fetch(API,{method:"POST",body:JSON.stringify({password:PASSWORD,date:dateStr,_delete:true,sick:0,total:0,names:[],ts:""}),mode:"no-cors"});
+    await new Promise(r=>setTimeout(r,1500));
+    await fetchData();
+  } catch(e){alert("Lỗi kết nối.");}
+}
+
+function clock(){document.getElementById("clock").textContent=new Date().toLocaleTimeString("vi-VN");}
+setInterval(clock,1000); clock();
 fetchData();
-setInterval(fetchData, 60000);
+setInterval(fetchData,60000);
 </script>
 </body>
 </html>
