@@ -91,7 +91,6 @@
       <thead><tr><th>Ngày</th><th>Số ốm / Tổng</th><th>Tỷ lệ</th><th>Tên người ốm</th></tr></thead>
       <tbody id="public-history-body"></tbody>
     </table>
-    <div id="public-err" style="display:none;color:#c0392b;font-size:13px"></div>
   </div>
   <div class="section">
     <h2>🔒 Cập nhật số liệu (chỉ admin)</h2>
@@ -128,7 +127,7 @@
   </div>
 </div>
 <script>
-const API = "https://script.google.com/macros/s/AKfycbzMnpX3SIrfpXAAjxSXNzsaFUYrhavgMzsKFTKAo10zJwsaKNVW7P9lT6IdK0U9m2chAQ/exec";
+const API = "https://script.google.com/macros/s/AKfycbxFf9adnM1TzZuIsW-GPadCTnfiOvX03OvUqmZ3-s9xzos-DF6_aBkzZ9exTvw-pu7biA/exec";
 const PASSWORD = "admin123";
 const CUSTOM_KEY = "sick_custom_names";
 const DEFAULT_NAMES = ["Dũng tí","Hoa","Dương","Huy","Minh Anh","Hoàng","Tú (vật chủ)","Thảo","Thành"];
@@ -142,41 +141,30 @@ function saveCustomNames(arr) { localStorage.setItem(CUSTOM_KEY, JSON.stringify(
 function allNames() { const c=getCustomNames(); return [...DEFAULT_NAMES,...c.filter(n=>!DEFAULT_NAMES.includes(n))]; }
 function todayStr() { return new Date().toISOString().slice(0,10); }
 
-// JSONP-based fetch to avoid CORS
-function jsonpFetch(url) {
+function jsonp(params) {
   return new Promise((resolve, reject) => {
-    const cb = "cb_" + Date.now();
+    const cb = "cb_" + Date.now() + "_" + Math.floor(Math.random()*10000);
+    const qs = Object.entries({...params, callback: cb}).map(([k,v])=>encodeURIComponent(k)+"="+encodeURIComponent(v)).join("&");
     const script = document.createElement("script");
-    const timer = setTimeout(() => {
-      delete window[cb];
-      script.remove();
-      reject(new Error("timeout"));
-    }, 15000);
-    window[cb] = (data) => {
-      clearTimeout(timer);
-      delete window[cb];
-      script.remove();
-      resolve(data);
-    };
-    script.src = url + (url.includes("?")?"&":"?") + "callback=" + cb;
-    script.onerror = () => { clearTimeout(timer); delete window[cb]; script.remove(); reject(new Error("script error")); };
+    const timer = setTimeout(() => { cleanup(); reject(new Error("timeout")); }, 15000);
+    function cleanup() { clearTimeout(timer); delete window[cb]; if(script.parentNode) script.remove(); }
+    window[cb] = (data) => { cleanup(); resolve(data); };
+    script.onerror = () => { cleanup(); reject(new Error("script error")); };
+    script.src = API + "?" + qs;
     document.head.appendChild(script);
   });
 }
 
 async function fetchData() {
   try {
-    const json = await jsonpFetch(API);
+    const json = await jsonp({ action: "read" });
     if (json.ok) {
       allData = json.data.sort((a,b) => String(b.date).localeCompare(String(a.date)));
       renderAll();
-      document.getElementById("public-err").style.display = "none";
     }
   } catch(e) {
-    document.getElementById("names-display").innerHTML = '<span style="color:#c0392b;font-size:13px">Lỗi kết nối. Đang thử lại...</span>';
-    document.getElementById("public-loading").style.display = "none";
-    document.getElementById("public-err").style.display = "";
-    document.getElementById("public-err").textContent = "Không tải được dữ liệu. Thử lại sau.";
+    document.getElementById("names-display").innerHTML = '<span style="color:#c0392b;font-size:13px">Lỗi kết nối. Thử lại sau.</span>';
+    document.getElementById("public-loading").innerHTML = '<span style="color:#c0392b;font-size:13px">Không tải được dữ liệu.</span>';
   }
 }
 
@@ -203,6 +191,7 @@ function renderAll() {
 }
 
 function buildRows(data, limit, withDelete) {
+  if (!data.length) return '<tr><td colspan="5" style="color:#aaa;text-align:center;padding:16px">Chưa có dữ liệu</td></tr>';
   return data.slice(0,limit).map(r => {
     const names = Array.isArray(r.names)?r.names:[];
     const sick = names.length||parseInt(r.sick)||0;
@@ -254,7 +243,7 @@ function unlock() {
 function renderPresetNames() {
   document.getElementById("preset-names").innerHTML = allNames().map(n=>{
     const sel=selectedNames.includes(n);
-    return `<button class="preset-btn ${sel?'selected':''}" onclick="toggleName('${n.replace(/'/g,"\\'")}')">
+    return `<button class="preset-btn ${sel?'selected':''}" onclick="toggleName('${n.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}')">
       ${n}${sel?" ✓":""}
     </button>`;
   }).join("");
@@ -292,18 +281,27 @@ async function updateData(){
   const btn=document.getElementById("btn-save");
   const msg=document.getElementById("save-msg");
   btn.disabled=true; btn.textContent="Đang lưu..."; msg.textContent="";
-  const payload={password:PASSWORD,date:dateStr,sick:selectedNames.length,total,names:selectedNames,ts:new Date().toISOString()};
   try {
-    // Use no-cors POST then re-fetch via JSONP to confirm
-    await fetch(API,{method:"POST",body:JSON.stringify(payload),mode:"no-cors"});
-    // Wait a moment then re-fetch
-    await new Promise(r=>setTimeout(r,1500));
-    await fetchData();
-    msg.className="save-msg save-ok";
-    msg.textContent="✓ Đã lưu ngày "+dateStr.split("-").reverse().join("/");
+    const res = await jsonp({
+      action: "write",
+      password: PASSWORD,
+      date: dateStr,
+      sick: selectedNames.length,
+      total: total,
+      names: JSON.stringify(selectedNames),
+      ts: new Date().toISOString()
+    });
+    if(res.ok){
+      msg.className="save-msg save-ok";
+      msg.textContent="✓ Đã lưu ngày "+dateStr.split("-").reverse().join("/");
+      await fetchData();
+    } else {
+      msg.className="save-msg save-err";
+      msg.textContent="Lỗi: "+(res.error||"Không rõ");
+    }
   } catch(e) {
     msg.className="save-msg save-err";
-    msg.textContent="Lỗi khi lưu. Thử lại.";
+    msg.textContent="Lỗi kết nối. Thử lại.";
   }
   btn.disabled=false; btn.textContent="✓ Lưu ngày này";
 }
@@ -311,10 +309,9 @@ async function updateData(){
 async function deleteRow(dateStr){
   if(!confirm("Xoá dữ liệu ngày "+dateStr+"?")) return;
   try {
-    await fetch(API,{method:"POST",body:JSON.stringify({password:PASSWORD,date:dateStr,_delete:true,sick:0,total:0,names:[],ts:""}),mode:"no-cors"});
-    await new Promise(r=>setTimeout(r,1500));
+    await jsonp({ action:"delete", password:PASSWORD, date:dateStr });
     await fetchData();
-  } catch(e){alert("Lỗi kết nối.");}
+  } catch(e){ alert("Lỗi kết nối."); }
 }
 
 function clock(){document.getElementById("clock").textContent=new Date().toLocaleTimeString("vi-VN");}
