@@ -29,7 +29,6 @@
   .name-pill { background: #fdecea; color: #c0392b; border-radius: 20px; padding: 4px 14px; font-size: 13px; font-weight: 500; }
   .no-sick { font-size: 13px; color: #aaa; }
 
-  /* History table - public */
   .history-table { width: 100%; border-collapse: collapse; font-size: 13px; }
   .history-table th { text-align: left; color: #888; font-weight: 400; padding: 4px 8px 10px; border-bottom: 0.5px solid rgba(0,0,0,0.08); }
   .history-table td { padding: 8px 8px; border-top: 0.5px solid rgba(0,0,0,0.06); vertical-align: top; }
@@ -38,7 +37,6 @@
   .pill.ok { background: #eafaf1; color: #27ae60; }
   .names-cell { display: flex; flex-wrap: wrap; gap: 4px; }
 
-  /* Admin */
   .lock-wrap { margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
   .lock-wrap input { border: 0.5px solid rgba(0,0,0,0.2); border-radius: 8px; padding: 7px 10px; font-size: 13px; }
   .lock-wrap button { background: #1a2744; color: #fff; border: none; border-radius: 8px; padding: 8px 16px; font-size: 13px; cursor: pointer; }
@@ -46,24 +44,18 @@
 
   .form-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 12px; }
   .form-row label { font-size: 13px; color: #555; min-width: 90px; }
-  .form-row input[type=number], .form-row input[type=date] { border: 0.5px solid rgba(0,0,0,0.2); border-radius: 8px; padding: 7px 10px; font-size: 14px; }
-  .form-row input[type=date] { width: 160px; }
-  .form-row input[type=number] { width: 80px; }
+  .form-row input[type=number] { border: 0.5px solid rgba(0,0,0,0.2); border-radius: 8px; padding: 7px 10px; font-size: 14px; width: 80px; }
+  .form-row input[type=date] { border: 0.5px solid rgba(0,0,0,0.2); border-radius: 8px; padding: 7px 10px; font-size: 14px; width: 160px; }
 
-  /* Name selector */
   .name-selector-label { font-size: 13px; color: #555; margin-bottom: 8px; display: block; }
   .preset-names { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
-  .preset-btn {
-    background: #f0f0f0; color: #333; border: 0.5px solid rgba(0,0,0,0.15);
-    border-radius: 20px; padding: 5px 14px; font-size: 13px; cursor: pointer;
-    transition: all 0.15s;
-  }
+  .preset-btn { background: #f0f0f0; color: #333; border: 0.5px solid rgba(0,0,0,0.15); border-radius: 20px; padding: 5px 14px; font-size: 13px; cursor: pointer; }
   .preset-btn:hover { background: #fdecea; color: #c0392b; border-color: #c0392b44; }
   .preset-btn.selected { background: #fdecea; color: #c0392b; border-color: #c0392b; font-weight: 500; }
 
   .custom-input-row { display: flex; gap: 8px; margin-bottom: 10px; }
   .custom-input-row input { border: 0.5px solid rgba(0,0,0,0.2); border-radius: 8px; padding: 7px 10px; font-size: 13px; flex: 1; }
-  .custom-input-row button { background: #1a2744; color: #fff; border: none; border-radius: 8px; padding: 7px 14px; font-size: 13px; cursor: pointer; white-space: nowrap; }
+  .custom-input-row button { background: #1a2744; color: #fff; border: none; border-radius: 8px; padding: 7px 14px; font-size: 13px; cursor: pointer; }
 
   .selected-names-wrap { display: flex; flex-wrap: wrap; gap: 6px; min-height: 28px; margin-bottom: 4px; }
   .tag-item { background: #fdecea; color: #c0392b; border-radius: 20px; padding: 3px 10px 3px 12px; font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 6px; }
@@ -72,10 +64,16 @@
 
   .btn-update { background: #1a2744; color: #fff; border: none; border-radius: 8px; padding: 9px 22px; font-size: 13px; cursor: pointer; }
   .btn-update:hover { background: #243660; }
-  .updated { font-size: 12px; color: #27ae60; margin-top: 8px; }
+  .btn-update:disabled { background: #aaa; cursor: not-allowed; }
+  .save-msg { font-size: 12px; margin-top: 8px; }
+  .save-msg.ok { color: #27ae60; }
+  .save-msg.err { color: #c0392b; }
   hr { border: none; border-top: 0.5px solid rgba(0,0,0,0.07); margin: 1.2rem 0; }
   .del-btn { background: none; border: none; cursor: pointer; color: #ccc; font-size: 12px; }
   .del-btn:hover { color: #c0392b; }
+  .loading { font-size: 13px; color: #aaa; }
+  .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid #ddd; border-top-color: #1a2744; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 6px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
@@ -85,36 +83,32 @@
 </header>
 <div class="container">
 
-  <!-- Stats -->
   <div class="cards">
-    <div class="card sick"><div class="label">Đang ốm</div><div class="value" id="num-sick">0</div></div>
-    <div class="card ok"><div class="label">Bình thường</div><div class="value" id="num-ok">0</div></div>
-    <div class="card total"><div class="label">Tổng</div><div class="value" id="num-total">0</div></div>
-    <div class="card rate"><div class="label">Tỷ lệ ốm</div><div class="value" id="num-rate">0%</div></div>
+    <div class="card sick"><div class="label">Đang ốm</div><div class="value" id="num-sick">—</div></div>
+    <div class="card ok"><div class="label">Bình thường</div><div class="value" id="num-ok">—</div></div>
+    <div class="card total"><div class="label">Tổng</div><div class="value" id="num-total">—</div></div>
+    <div class="card rate"><div class="label">Tỷ lệ ốm</div><div class="value" id="num-rate">—</div></div>
   </div>
 
-  <!-- Today names -->
   <div class="section">
     <h2>🤒 Người đang ốm hôm nay</h2>
-    <div class="names-wrap" id="names-display"></div>
+    <div class="names-wrap" id="names-display"><span class="loading"><span class="spinner"></span>Đang tải...</span></div>
   </div>
 
-  <!-- Chart -->
   <div class="section">
     <h2>Xu hướng 14 ngày gần nhất</h2>
     <canvas id="trendChart" height="90"></canvas>
   </div>
 
-  <!-- Public history -->
   <div class="section">
     <h2>📅 Lịch sử 20 ngày gần nhất</h2>
-    <table class="history-table">
+    <div id="public-loading" class="loading"><span class="spinner"></span>Đang tải...</div>
+    <table class="history-table" id="public-table" style="display:none">
       <thead><tr><th>Ngày</th><th>Số ốm / Tổng</th><th>Tỷ lệ</th><th>Tên người ốm</th></tr></thead>
       <tbody id="public-history-body"></tbody>
     </table>
   </div>
 
-  <!-- Admin panel -->
   <div class="section">
     <h2>🔒 Cập nhật số liệu (chỉ admin)</h2>
     <div class="lock-wrap" id="lock-section">
@@ -142,10 +136,10 @@
       </div>
 
       <div class="selected-names-wrap" id="selected-names-wrap"></div>
-      <div class="hint">Click tên để chọn/bỏ chọn. Tên tự nhập sẽ được lưu vào danh sách.</div>
+      <div class="hint">Click tên để chọn/bỏ chọn. Tên tự nhập sẽ lưu vào danh sách.</div>
 
-      <button class="btn-update" onclick="updateData()">✓ Lưu ngày này</button>
-      <div class="updated" id="last-updated"></div>
+      <button class="btn-update" id="btn-save" onclick="updateData()">✓ Lưu ngày này</button>
+      <div class="save-msg" id="save-msg"></div>
 
       <hr>
       <table class="history-table">
@@ -156,37 +150,51 @@
   </div>
 
 </div>
-
 <script>
+const API = "https://script.google.com/macros/s/AKfycbyEe43R3rgL2vDb1ILaAIEI3XjuMo335RCHpzTBXkzLs6szcCx5WwDL5Ulrjwj6dhO0Ag/exec";
 const PASSWORD = "admin123";
-const STORAGE_KEY = "sick_tracker_v3";
+const CUSTOM_KEY = "sick_custom_names";
 
 const DEFAULT_NAMES = ["Dũng tí","Hoa","Dương","Huy","Minh Anh","Hoàng","Tú (vật chủ)","Thảo","Thành"];
 
-function loadData() {
-  try { const r = localStorage.getItem(STORAGE_KEY); if (r) return JSON.parse(r); } catch(e) {}
-  return { history: [], customNames: [] };
-}
-function saveData(d) { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); }
-
-let data = loadData();
+let allData = [];
 let chart;
 let selectedNames = [];
 
+function getCustomNames() {
+  try { return JSON.parse(localStorage.getItem(CUSTOM_KEY) || "[]"); } catch(e) { return []; }
+}
+function saveCustomNames(arr) { localStorage.setItem(CUSTOM_KEY, JSON.stringify(arr)); }
+
 function allNames() {
-  return [...DEFAULT_NAMES, ...data.customNames.filter(n => !DEFAULT_NAMES.includes(n))];
+  const custom = getCustomNames();
+  return [...DEFAULT_NAMES, ...custom.filter(n => !DEFAULT_NAMES.includes(n))];
 }
 
 function todayStr() { return new Date().toISOString().slice(0,10); }
 
-function getEntry(dateStr) {
-  return data.history.find(h => h.date === dateStr) || { date: dateStr, sick: 0, total: 9, names: [] };
+async function fetchData() {
+  try {
+    const res = await fetch(API);
+    const json = await res.json();
+    if (json.ok) {
+      allData = json.data.sort((a,b) => b.date.localeCompare(a.date));
+      renderAll();
+    }
+  } catch(e) {
+    document.getElementById("names-display").innerHTML = '<span style="color:#c0392b;font-size:13px">Lỗi kết nối. Thử lại sau.</span>';
+  }
+}
+
+function getToday() {
+  return allData.find(r => r.date === todayStr()) || { date: todayStr(), sick: 0, total: 9, names: [] };
 }
 
 function renderAll() {
-  const today = getEntry(todayStr());
-  const sick = today.names ? today.names.length : (today.sick || 0);
-  const total = today.total || 0;
+  const today = getToday();
+  const names = Array.isArray(today.names) ? today.names : [];
+  const sick = names.length || parseInt(today.sick) || 0;
+  const total = parseInt(today.total) || 0;
   const ok = Math.max(0, total - sick);
   const rate = total > 0 ? Math.round(sick / total * 100) : 0;
 
@@ -196,7 +204,6 @@ function renderAll() {
   document.getElementById("num-rate").textContent = rate + "%";
 
   const nw = document.getElementById("names-display");
-  const names = today.names || [];
   nw.innerHTML = names.length === 0
     ? '<span class="no-sick">Không có ai ốm hôm nay 🎉</span>'
     : names.map(n => `<span class="name-pill">${n}</span>`).join("");
@@ -206,41 +213,46 @@ function renderAll() {
   renderChart();
 }
 
-function historyRows(limit, withDelete) {
-  return [...data.history]
-    .sort((a,b) => b.date.localeCompare(a.date))
-    .slice(0, limit)
-    .map(r => {
-      const sick = r.names ? r.names.length : (r.sick || 0);
-      const rate = r.total > 0 ? Math.round(sick / r.total * 100) : 0;
-      const cls = sick > 0 ? 'sick' : 'ok';
-      const dateD = r.date.split("-").reverse().join("/");
-      const namesHtml = (r.names||[]).length > 0
-        ? (r.names||[]).map(n => `<span class="pill sick" style="font-size:11px">${n}</span>`).join(" ")
-        : '<span style="color:#aaa;font-size:12px">—</span>';
-      const delBtn = withDelete ? `<td><button class="del-btn" onclick="deleteRow('${r.date}')">✕</button></td>` : '';
-      return `<tr><td>${dateD}</td><td><span class="pill ${cls}">${sick} / ${r.total}</span></td><td>${rate}%</td><td><div class="names-cell">${namesHtml}</div></td>${delBtn}</tr>`;
-    }).join("");
+function buildRows(data, limit, withDelete) {
+  return data.slice(0, limit).map(r => {
+    const names = Array.isArray(r.names) ? r.names : [];
+    const sick = names.length || parseInt(r.sick) || 0;
+    const total = parseInt(r.total) || 0;
+    const rate = total > 0 ? Math.round(sick / total * 100) : 0;
+    const cls = sick > 0 ? 'sick' : 'ok';
+    const dateD = String(r.date).split("-").reverse().join("/");
+    const namesHtml = names.length > 0
+      ? names.map(n => `<span class="pill sick" style="font-size:11px">${n}</span>`).join(" ")
+      : '<span style="color:#aaa;font-size:12px">—</span>';
+    const del = withDelete ? `<td><button class="del-btn" onclick="deleteRow('${r.date}')">✕</button></td>` : '';
+    return `<tr><td>${dateD}</td><td><span class="pill ${cls}">${sick} / ${total}</span></td><td>${rate}%</td><td><div class="names-cell">${namesHtml}</div></td>${del}</tr>`;
+  }).join("");
 }
 
 function renderPublicHistory() {
-  document.getElementById("public-history-body").innerHTML = historyRows(20, false);
+  document.getElementById("public-loading").style.display = "none";
+  document.getElementById("public-table").style.display = "";
+  document.getElementById("public-history-body").innerHTML = buildRows(allData, 20, false);
 }
+
 function renderAdminHistory() {
-  document.getElementById("admin-history-body").innerHTML = historyRows(30, true);
+  document.getElementById("admin-history-body").innerHTML = buildRows(allData, 30, true);
 }
 
 function renderChart() {
-  const sorted = [...data.history].sort((a,b) => a.date.localeCompare(b.date)).slice(-14);
-  const labels = sorted.map(r => r.date.slice(5).replace("-","/"));
-  const vals = sorted.map(r => r.names ? r.names.length : (r.sick||0));
+  const sorted = [...allData].sort((a,b) => a.date.localeCompare(b.date)).slice(-14);
+  const labels = sorted.map(r => String(r.date).slice(5).replace("-","/"));
+  const vals = sorted.map(r => {
+    const names = Array.isArray(r.names) ? r.names : [];
+    return names.length || parseInt(r.sick) || 0;
+  });
   const ctx = document.getElementById("trendChart").getContext("2d");
   if (chart) chart.destroy();
   chart = new Chart(ctx, {
     type: "bar",
     data: { labels, datasets: [{ label: "Số người ốm", data: vals, backgroundColor: "rgba(192,57,43,0.72)", borderRadius: 5, borderSkipped: false }] },
     options: { responsive: true, plugins: { legend: { display: false } },
-      scales: { y: { beginAtZero: true, ticks: { stepSize: 1, font:{size:12} }, grid:{color:"rgba(0,0,0,0.05)"} }, x: { ticks:{font:{size:11}}, grid:{display:false} } } }
+      scales: { y: { beginAtZero: true, ticks:{stepSize:1,font:{size:12}}, grid:{color:"rgba(0,0,0,0.05)"} }, x:{ticks:{font:{size:11}},grid:{display:false}} } }
   });
 }
 
@@ -264,21 +276,20 @@ function unlock() {
 function renderPresetNames() {
   const wrap = document.getElementById("preset-names");
   wrap.innerHTML = allNames().map(n => {
-    const sel = selectedNames.includes(n) ? "selected" : "";
-    return `<button class="preset-btn ${sel}" onclick="toggleName('${n.replace(/'/g,"\\'")}')">
-      ${n}${selectedNames.includes(n) ? " ✓" : ""}
+    const sel = selectedNames.includes(n);
+    return `<button class="preset-btn ${sel?'selected':''}" onclick="toggleName(this,'${n.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}')">
+      ${n}${sel?" ✓":""}
     </button>`;
   }).join("");
   renderSelectedTags();
 }
 
-function toggleName(name) {
+function toggleName(btn, name) {
   if (selectedNames.includes(name)) {
     selectedNames = selectedNames.filter(n => n !== name);
   } else {
     selectedNames.push(name);
   }
-  document.getElementById("inp-total") && null;
   renderPresetNames();
 }
 
@@ -286,10 +297,8 @@ function addCustomName() {
   const inp = document.getElementById("custom-name-input");
   const val = inp.value.trim();
   if (!val) return;
-  if (!allNames().includes(val)) {
-    data.customNames.push(val);
-    saveData(data);
-  }
+  const custom = getCustomNames();
+  if (!allNames().includes(val)) { custom.push(val); saveCustomNames(custom); }
   if (!selectedNames.includes(val)) selectedNames.push(val);
   inp.value = "";
   renderPresetNames();
@@ -302,41 +311,61 @@ function renderSelectedTags() {
   ).join("");
 }
 
-function removeSelected(i) {
-  selectedNames.splice(i, 1);
-  renderPresetNames();
-}
+function removeSelected(i) { selectedNames.splice(i,1); renderPresetNames(); }
 
 function loadDateIntoForm(dateStr) {
-  const entry = data.history.find(h => h.date === dateStr);
+  const entry = allData.find(r => r.date === dateStr);
   document.getElementById("inp-total").value = entry ? entry.total : 9;
-  selectedNames = entry ? [...(entry.names || [])] : [];
+  selectedNames = entry ? [...(Array.isArray(entry.names) ? entry.names : [])] : [];
   renderPresetNames();
 }
 
-function updateData() {
+async function updateData() {
   const dateStr = document.getElementById("inp-date").value;
   if (!dateStr) { alert("Chọn ngày trước."); return; }
   const total = parseInt(document.getElementById("inp-total").value) || 0;
-  const entry = { date: dateStr, sick: selectedNames.length, total, names: [...selectedNames], ts: new Date().toISOString() };
-  const idx = data.history.findIndex(h => h.date === dateStr);
-  if (idx >= 0) data.history[idx] = entry; else data.history.push(entry);
-  saveData(data);
-  const dateD = dateStr.split("-").reverse().join("/");
-  document.getElementById("last-updated").textContent = "✓ Đã lưu ngày " + dateD;
-  renderAll();
+  const btn = document.getElementById("btn-save");
+  const msg = document.getElementById("save-msg");
+  btn.disabled = true;
+  btn.textContent = "Đang lưu...";
+  msg.textContent = "";
+  try {
+    const res = await fetch(API, {
+      method: "POST",
+      body: JSON.stringify({ password: PASSWORD, date: dateStr, sick: selectedNames.length, total, names: selectedNames, ts: new Date().toISOString() })
+    });
+    const json = await res.json();
+    if (json.ok) {
+      msg.className = "save-msg ok";
+      msg.textContent = "✓ Đã lưu ngày " + dateStr.split("-").reverse().join("/");
+      await fetchData();
+    } else {
+      msg.className = "save-msg err";
+      msg.textContent = "Lỗi: " + (json.error || "Không rõ");
+    }
+  } catch(e) {
+    msg.className = "save-msg err";
+    msg.textContent = "Lỗi kết nối. Thử lại.";
+  }
+  btn.disabled = false;
+  btn.textContent = "✓ Lưu ngày này";
 }
 
-function deleteRow(dateStr) {
+async function deleteRow(dateStr) {
   if (!confirm("Xoá dữ liệu ngày " + dateStr + "?")) return;
-  data.history = data.history.filter(h => h.date !== dateStr);
-  saveData(data);
-  renderAll();
+  try {
+    await fetch(API, {
+      method: "POST",
+      body: JSON.stringify({ password: PASSWORD, date: dateStr, _delete: true, sick:0, total:0, names:[], ts:"" })
+    });
+    await fetchData();
+  } catch(e) { alert("Lỗi kết nối."); }
 }
 
 function clock() { document.getElementById("clock").textContent = new Date().toLocaleTimeString("vi-VN"); }
 setInterval(clock, 1000); clock();
-renderAll();
+fetchData();
+setInterval(fetchData, 60000);
 </script>
 </body>
 </html>
